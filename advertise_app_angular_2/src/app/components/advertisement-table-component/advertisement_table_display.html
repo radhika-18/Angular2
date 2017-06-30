@@ -1,0 +1,44 @@
+<div>
+    <h2>{{title}}</h2>
+        <div class="table" *ngIf="advertisementList.length>0" >
+          <button type="submit" [disabled]="start==0" id="previousButton" class="btn btn-primary previous" (click)=getPreviousSet()>PREVIOUS PAGE</button>
+        <button type="submit" [disabled]="start>advertisementList.length || advertisementList.length<10 " id="nextButton" class="btn btn-primary" (click)=getNextSet()>NEXT PAGE</button>
+        <br>
+        <br/>
+        <table  class="table table-bordered">
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+            
+            <tr *ngFor="let element of advertisementList  ">
+                <td>{{element.id}}</td>
+                <td> {{element.title}} </td>
+                <td> {{element.name}} </td>
+                <td> {{element.category}} </td>
+                <td> {{element.description}} </td>
+                <td> <button type="button" class="btn btn-primary" (click)=editAd(element.id) >EDIT</button> <button type="button" class="btn btn-danger" (click)="confirmDeleteModal.open()">DELETE</button></td>
+                <modal #confirmDeleteModal
+                        title="Delete Item"
+                        submitButtonLabel="Yes"
+                        cancelButtonLabel="No"
+                        modalClass="modal-lg modal-sm any-other-css-class"
+                        [closeOnEscape]="true"
+                        [closeOnOutsideClick]="true"
+                        (onSubmit)="deleteAd(element.id)">
+                        <modal-content>
+                           Do you want to delete item?
+                        </modal-content>
+                </modal>
+            </tr>
+        </table>
+    </div>
+    <div class="message" *ngIf="advertisementList.length==0">
+            <h3> No products to show</h3>
+    </div>
+</div>
+ <!--| search:'name':searchName-->

@@ -1,0 +1,64 @@
+
+<h2>{{title}}</h2>
+<form #advForm="ngForm" novalidate (ngSubmit)="addAdvertisement(advForm.value,advForm)" >
+    <div class="form">
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label>Title</label>
+                <input type="text" #adtitleRef required minlength="3" name="adtitle" class="form-control" #adtitleRefModel="ngModel" ngModel>
+                <div *ngIf="adtitleRefModel.errors && adtitleRefModel.touched" class="alert alert-danger" >
+                    <div [hidden]="!adtitleRefModel.errors.required"> Please enter the title </div>
+                    <div [hidden]="!adtitleRefModel.errors.minlength"> Min length is 3 characters </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label>Name</label>
+                <input type="text" #adnameRef name="adname"  required minlength="3"class="form-control" #adnameRefModel="ngModel" ngModel >
+                <div *ngIf="adnameRefModel.errors && adnameRefModel.touched" class="alert alert-danger" >
+                    <div [hidden]="!adnameRefModel.errors.required"> Please enter the name </div>
+                    <div [hidden]="!adnameRefModel.errors.minlength"> Min length is 3 characters </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label>Category</label>           
+                <select name="adcategory" class="form-control" required #adcatRef #adcatRefModel="ngModel" ngModel >
+                    <option *ngFor="let cat of category" [value]="cat['name']"  > {{cat['name']}}</option>
+                </select>
+                <div *ngIf="adcatRefModel.errors && adcatRefModel.touched" class="alert alert-danger" >
+                    <div [hidden]="!adcatRefModel.errors.required"> Please select a category</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label>Description</label>
+                <input type="text" #addescRef name="addescription" class="form-control" required minlength="5" #addescRefModel="ngModel" ngModel >
+                <div *ngIf="addescRefModel.errors && addescRefModel.touched" class="alert alert-danger" >
+                    <div [hidden]="!addescRefModel.errors.required"> Please enter a description </div>
+                    <div [hidden]="!addescRefModel.errors.minlength"> Min length is 5 characters </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label>Image</label>
+                <input type="file" multiple (change)="onFileChange($event)" name="adimage" accept="image/*" #adimageRef  class="form-control"  #adimageRefModel="ngModel" ngModel>
+                <br>
+                <div  *ngFor="let image of adimages" >
+                    <div class="img-wrap">
+                        <span class="close"><button (click)="removeImage(image)">&times;</button></span>
+                        <img src='{{image}}'>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <nav>
+        <button type="submit" class="btn btn-white btn-default active">ADD ADVERTISEMEMT</button>
+        <button type="button" (click)="clearForm(advForm)" class="btn btn-white btn-default active">CLEAR FORM</button>        
+        </nav>
+    </div>
+</form>

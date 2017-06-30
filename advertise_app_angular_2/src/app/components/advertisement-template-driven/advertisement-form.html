@@ -1,0 +1,43 @@
+<h2>{{title}}</h2>
+<div class="form">
+      <form #advForm="ngForm" novalidate (ngSubmit)="addAdvertisement(advForm.value)" >
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label>Name</label>
+                <input type="text" #adnameRef name="adname" required minlength="3" class="form-control" #adnameRefModel="ngModel" ngModel >
+                <div *ngIf="adnameRefModel.errors && adnameRefModel.touched" class="alert alert-danger" >
+                    <div [hidden]="!adnameRefModel.errors.required"> Please enter the name </div>
+                    <div [hidden]="!adnameRefModel.errors.minlength"> Min length is 3 characters </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label>Category</label>           
+                <select name="adcategory" required class="form-control" #adcatRef #adcatRefModel="ngModel" ngModel>
+                <option *ngFor="let cat of category" [value]="cat"> {{cat}}</option>
+                </select>
+                 <div *ngIf="adcatRefModel.errors && adcatRefModel.touched" class="alert alert-danger" >
+                    <div [hidden]="!adcatRefModel.errors.required"> Please select a category</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label>Description</label>
+                <input type="text" #addescRef name="addescription"  required minlength="5" class="form-control" #addescRefModel="ngModel" ngModel>
+                <div *ngIf="addescRefModel.errors && addescRefModel.touched" class="alert alert-danger" >
+                    <div [hidden]="!addescRefModel.errors.required"> Please enter a description </div>
+                    <div [hidden]="!addescRefModel.errors.minlength"> Min length is 5 characters </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-3">
+                <label>Image</label>
+                <input type="file" (change)="onFileChange($event)" name="adimage" accept="image/*" #adimageRef  class="form-control" #adimageRefModel="ngModel" ngModel>
+            </div>
+        </div>
+        <button type="submit" [disabled]="!advForm.form.valid" class="btn btn-primary">ADD ADVERTISEMEMT</button>
+    </form>
+</div>

@@ -1,0 +1,35 @@
+h2 {
+  color: #369;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 250%;
+}
+img{
+  height:100px;
+  width:100px;
+  text-align: center;
+}
+td,th{
+  text-align: center;
+}
+nav a.active{
+      color: orange;
+}
+h3{
+  text-align: center;
+}
+.img-wrap {
+    position: relative;
+    border: 2px solid white;
+
+}
+.img-wrap .close {
+    position: absolute;
+    top: 2px;
+    
+    left:2px;
+    z-index: 1;
+}
+
+#nextButton{
+  float:right;
+}

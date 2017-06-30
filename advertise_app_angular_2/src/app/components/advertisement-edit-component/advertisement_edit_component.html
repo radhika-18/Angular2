@@ -1,0 +1,54 @@
+<div class="container">
+    <h2>{{title}}</h2>
+    <form #editForm="ngForm" novalidate (ngSubmit)="editAdvertisement(editForm.value)">
+        <div class="form">
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label>Title</label>
+                    <input type="text" #adtitleRef required minlength="3" name="adtitle" [(ngModel)]="currObject.title" class="form-control" #adtitleRefModel="ngModel" ngModel>
+                    <div *ngIf="adtitleRefModel.errors && adtitleRefModel.touched" class="alert alert-danger" >
+                    <div [hidden]="!adtitleRefModel.errors.required"> Please enter the title </div>
+                    <div [hidden]="!adtitleRefModel.errors.minlength"> Min length is 3 characters </div>
+                </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label>Name</label>
+                    <input type="text" #adnameRef name="adname" class="form-control"  #adnameRefModel="ngModel" ngModel [(ngModel)]="currObject.name" >
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label>Category</label>           
+                    <select name="adcategory" class="form-control" #adcatRef #adcatRefModel="ngModel" ngModel >
+                    <!--<option *ngFor="let cat of category" [value]="cat"  >{{currObject.category}}</option>-->
+                    <option *ngFor="let cat of category" [selected]="currObject.category===cat.name">{{cat.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label>Description</label>
+                    <input type="text" #addescRef name="addescription" class="form-control" [(ngModel)]="currObject.description"  #addescRefModel="ngModel" ngModel >
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-3">
+                    <label>Image</label>
+                    <input type="file" (change)="onFileChange($event)" name="adimage" accept="image/*" #adimageRef  class="form-control" #adimageRefModel="ngModel" ngModel>
+                    <br>
+                    <div  *ngFor="let image of currObject['photos']" >
+                        <div class="img-wrap">
+                            <span class="close"><button (click)="removeImage(image)">&times;</button></span>
+                            <img src="data:image/jpeg;base64,{{image}}">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">UPDATE</button> 
+            <button type="button" (click)="backToHomePage()" class="btn btn-primary">CANCEL</button>
+        </div>
+    </form>
+</div>
